@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            background-color: black;
+            display: grid;
+            grid-template-rows: 25px 130px;
+            grid-template-columns: 350px;
+            grid-template-areas: 'div1'
+                'div2';
+            justify-content: center;
+            align-content: center;
+
+        }
+
+        #fa {
+            grid-area: div1;
+            width: 350px;
+            height: 25px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #fff;
+        }
+
+        #son {
+            width: 10%;
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(to right, rgb(87, 74, 74), rgb(43, 100, 100));
+            animation: action 8s infinite;
+        }
+
+        @keyframes action {
+            0% {
+                width: 0;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        #nav {
+            grid-area: div2;
+            justify-self: center;
+            align-self: center;
+        }
+
+        #inp {
+            width: 60px;
+            height: 35px;
+            background-color: #000;
+            color: #fff;
+            border: 1px solid;
+            border-radius: 10px #ccc;
+            box-shadow: 0 0 5px #fff;
+            font-size: 20px;
+            text-align: center;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div id="fa">
+        <div id="son"></div>
+    </div>
+    <div id="nav">
+        <input type="text" id="inp" value="0">
+    </div>
+    <script>
+        let ofa =document.querySelector("#fa");
+        let oSon =document.querySelector("#son");
+        let oInp =document.querySelector("#inp");
+        setInterval(() => {
+            let num=`${(oSon.clientWidth/ofa.clientWidth*100).toFixed(0)}%`;
+            console.log(num);
+            oInp.value = num;
+        }, 100);
+        
+    </script>
+    <!-- <progress max="100" value="60"></progress> -->
+</body>
+
+</html>
