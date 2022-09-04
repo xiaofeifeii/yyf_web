@@ -7,6 +7,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>逸飞导航-有范的导航网站</title>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="theme-color" content="#f9f9f9">
     <meta name="keywords" content="设计导航,网址导航,资源导航,创意导航,设计素材大全,软件导航">
     <meta name="description" content="逸飞导航 - 精选每个链接">
@@ -136,14 +137,14 @@
     <script>
 
         function getData() {
-            var url = "http://yyfhome.xyz:1880/pasteData";
+            var url = "https://yyfhome.top:1880/paste";
             $.get(
                 url, function (data, status, jqxhr) {
                     console.log(data);
                     $('#val1').val(data)
                 }
             ).fail(function () {
-                alert('失败' + status);
+                alert('获取失败' + status);
             });
         }
 
@@ -151,7 +152,8 @@
         function paste() {
             var val = $('#val1').val();
             console.log(val);
-            var url = "http://yyfhome.xyz:1880/paste";
+             var url = "https://yyfhome.top:1880/paste";
+            
             // $.get(
             //     url, function (data, status, jqxhr) {
             //         console.log(data);
@@ -165,7 +167,7 @@
                 function (res) {
                     console.log(res);
                 }).fail(function () {
-                    alert('失败' + status);
+                    alert('暂存失败' + status);
                 });
         }
 
