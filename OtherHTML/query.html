@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+
+<head>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
+    <script>
+        function paramQuery() {
+            var sn = $('#sn').val();
+            var param = $('#param option:selected').val();
+
+            var url = "http://123.57.255.52:1880/ParamQuery?param=" + param + "&sn=" + sn;
+            console.log(url);
+            $.get(url,
+                function (data, status, jqxhr) {
+                    console.log(data);
+                    if (data == "timeout") {
+                        alert("查询超时！");
+                    }
+                    if (('msg' in data) && data.msg != null && data.msg != "OK") {
+                        $("#result").val(data.msg);
+                        alert("无查询结果");
+                    } else {
+                        var str = data.param.name + ":" + data.param.value
+                        $("#result").val(data.param.value);
+                    }
+                });
+        }
+        function paramSet() {
+            var sn = $('#sn').val();
+            var param = $('#param option:selected').val();
+            var val = $('#result').val();
+            var url = "http://123.57.255.52:1880/ParamSet?param=" + param + "&val=" + val + "&sn=" + sn;
+            console.log(url);
+            $.get(url,
+                function (data, status, jqxhr) {
+                    console.log(data);
+                    if (('msg' in data) && data.msg != null && data.msg != "OK") {
+                        alert("设置失败");
+                    } else {
+                        alert("设置成功");
+                    }
+                });
+        }
+
+        function reboot() {
+
+            var sn = $('#sn').val();
+            var url = "http://123.57.255.52:1880/ParamSet?param=reset" + "&val=reset" + "&sn=" + sn;
+            console.log(url);
+            if (confirm("确认重启设备？")) {
+                console.log("reboot");
+                $.get(url,
+                function (data, status, jqxhr) {
+                    console.log(data);
+                });
+            }   
+        }
+
+        function clear_content() {
+            //     document.getElementById("username").value="";
+            //     document.getElementById("password").value="";
+            location.reload();
+        }
+    </script>
+</head>
+
+<body>
+    <div style ="margin-top:150px;display: flex;justify-content: center; align-items: center;">
+        <form action="" method="get" name="myForm">
+            <p>设备列号：<input type="text" id="sn" value="864819052615505"></p>
+            <p>参数类型：
+                <select id="param">
+                    <option value="lora_freq">LoRa频率</option>
+                    <option value="lora_sf">LoRa扩频因子</option>
+                    <option value="dev_type">设备类型</option>
+                    <option value="radar_enable">雷达使能状态</option>
+                    <option value="vd_uart">能见度仪串口</option>
+                    <option value="console_enable">控制台串口状态</option>
+                </select>
+            </p>
+            <p>参数值：
+                <input id="result">
+            </p>
+            <input type="button" id="query" value="查询" onclick="return paramQuery()" />
+            <input type="button" id="set" value="设置" onclick="return paramSet()" />
+            <input type="button" id="reset" value="重启" onclick="return reboot()" />
+        </form>
+        <br>
+    </div>
+
+</body>
+
+</html>
